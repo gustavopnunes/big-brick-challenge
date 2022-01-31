@@ -8,6 +8,12 @@
     <title>Desafio Tijolão</title>
 
     <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
         body {
             width: 100%;
             height: 100vh;
@@ -21,14 +27,14 @@
         }
 
         .display {
-            width: 180px;
+            width: 170px;
             height: 110px;
             background-color: #82AB7D;
             box-sizing: border-box;
             border-radius: 10px;
             position: absolute;
-            top: 370px;
-            right: 790px;
+            top: 360px;
+            right: 810px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -36,8 +42,8 @@
 
         .btn-container {
             position: absolute;
-            top: 580px;
-            right: 790px;
+            top: 570px;
+            right: 805px;
             width: 180px;
             height: 150px;
             flex-wrap: wrap;
@@ -79,7 +85,6 @@
 
 <body>
     <div>
-
         <img src="tijolo.jpeg" />
         <div class="display">
             <div class="content"></div>
@@ -103,7 +108,9 @@
 
     <script>
         const display = document.querySelector(".display")
-        
+        let caracter = '';
+        let letraSequencial = '';
+
         const digitar = (code) => {
             const alfabetoCodigos = {
                 2: 'a',
@@ -134,24 +141,31 @@
                 9999: 'z',
                 0: ' ',
             };
-
-
-            let caracter = '';
-
-            // clearTimeout(sequencia);
-
-            caracter = alfabetoCodigos[Number(code)];
-            let letraSequencial = ;
-            let sequencia = setTimeout(() => {
-                letraSequencial = ""
-                if (letraSequencial) {
-                    caracter = alfabetoCodigos[Number(code + letraSequencial)]
+            
+            if (caracter === '') {
+                caracter = code.toString();
+                letraSequencial = code.toString();
+            } else {
+                if (caracter !== code.toString()) {
+                    caracter = code.toString();
+                    letraSequencial = code.toString();
+                } else if (caracter === code.toString()) {
+                    letraSequencial += code.toString();
                 }
-                display.textContent = caracter
+            }
+
+            let sequencia;
+            clearTimeout(sequencia);
+            
+            sequencia = setTimeout(() => {
+
+                caracter = display.textContent ? display.textContent + alfabetoCodigos[Number(letraSequencial)] : alfabetoCodigos[Number(letraSequencial)];
+                console.log(display.textContent);
+                display.textContent = caracter;
+                caracter = '';
+                letraSequencial = '';
             }, 1000);
-
         }
-
 
     </script>
 </body>
